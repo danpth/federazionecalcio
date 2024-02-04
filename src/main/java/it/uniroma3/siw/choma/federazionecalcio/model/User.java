@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -24,6 +25,15 @@ public class User {
     @NotBlank
     private String email;
     private String picFilename;
+
+    private String fiscalCode;
+    private String birthPlace;
+    private String birthDate;
+    @OneToOne(mappedBy = "president")
+    private Team team;
+
+
+
 
     public String getPicPath(){
         if(picFilename != null) return "/upload/images/user_pics/" + this.getId() + "/"

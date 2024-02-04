@@ -10,7 +10,7 @@
 <div th:replace="fragments/base :: header"></div>
 <main class="form-lr w-100 m-auto">
     <form th:action="@{/register}" method="POST">
-        <h1 class="h3 mb-3 fw-normal text-light text-center">Register New User</h1>
+        <h1 class="h3 mb-3 fw-normal text-light text-center">Register as a President</h1>
 
         <div th:if="${#fields.hasErrors('user')} or ${#fields.hasErrors('credentials')}">
             <ul class="list-group-flush">
