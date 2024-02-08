@@ -1,7 +1,9 @@
 package it.uniroma3.siw.choma.federazionecalcio.controller;
 
 import it.uniroma3.siw.choma.federazionecalcio.model.Team;
+import it.uniroma3.siw.choma.federazionecalcio.model.User;
 import it.uniroma3.siw.choma.federazionecalcio.service.TeamService;
+import it.uniroma3.siw.choma.federazionecalcio.service.UserService;
 import it.uniroma3.siw.choma.federazionecalcio.validator.TeamValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,18 @@ public class TeamController {
     private TeamService teamService;
     @Autowired
     private TeamValidator teamValidator;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/admin/teams")
     public String showTeamsAdmin(Model model){
         model.addAttribute("teams", this.teamService.findAll());
         return "admin/teamsAdmin";
+    }
+    @GetMapping("/teams")
+    public String showTeams(Model model){
+        model.addAttribute("teams", this.teamService.findAll());
+        return "teams";
     }
     @GetMapping("/admin/formNewTeam")
     public String formNewTeam(Model model){
@@ -40,11 +49,14 @@ public class TeamController {
         return "admin/adminEditTeam";
     }
 
-    @PostMapping("/admin/editTeam")
-    public String editTeam(@Valid @ModelAttribute("team") Team team, BindingResult bindingResult, Model model){
+    @PostMapping("/admin/editTeam/{id}")
+    public String editTeam(@PathVariable("id") Long id, @Valid @ModelAttribute("team") Team team, BindingResult bindingResult, Model model){
         teamValidator.validate(team, bindingResult);
         if(!bindingResult.hasErrors()){
-            this.teamService.updateTeam(team);
+            Team teamRetrieved = teamService.findById(id);
+            if(teamRetrieved == null) return "errors/teamNotFoundError";
+            team.setId(teamRetrieved.getId());
+            teamService.updateTeam(team);
             model.addAttribute("team", team);
             return "admin/teamAdmin";
         }else{
@@ -57,7 +69,7 @@ public class TeamController {
     public String newTeam(@Valid @ModelAttribute("team") Team team, BindingResult bindingResult, Model model){
         teamValidator.validate(team, bindingResult);
         if(!bindingResult.hasErrors()){
-            this.teamService.createNewTeam(team);
+            teamService.createNewTeam(team);
             model.addAttribute("team", team);
             return "admin/teamAdmin";
         }else{
@@ -74,6 +86,27 @@ public class TeamController {
 
         model.addAttribute("team", team);
         return "admin/teamAdmin";
+    }
+
+    @GetMapping("/team/{id}")
+    public String getTeam(@PathVariable("id") Long id, Model model){
+        Team team = teamService.findById(id);
+        if(team == null) return "errors/teamNotFoundError";
+
+        model.addAttribute("team", team);
+        return "team";
+    }
+
+    @PostMapping("/president/claim/{id}")
+    public String claimTeam(@Valid @ModelAttribute("team") Team team, @PathVariable("id") Long id, Model model){
+        Team teamRetrieved = teamService.findById(id);
+        if(teamRetrieved == null) return "errors/teamNotFoundError";
+        if (team.getPresident() != null) return "errors/teamAlreadyClaimed";
+        User president = userService.getCurrentUser();
+        president.setTeam(teamRetrieved);
+        userService.updateUser(president);
+        model.addAttribute("team", teamRetrieved);
+        return "claimSuccessful";
     }
 
 }

@@ -9,20 +9,25 @@
 </head>
 <body>
 <div th:replace="fragments/playerSearchHeader :: playersHeader"></div>
-<ul id="listPlayers" class="list-group px-5 mx-auto">
+<div class="px-5 mx-auto list-group">
     <div id="listTitle" class="row w-50 my-1 justify-content-center align-self-center">
-        <button type = "button" class="p-2 text-center btn btn-outline-light">Players</button>
+        <h2 class="p-2 text-center text-warning font-weight-bolder">PLAYERS</h2>
     </div>
-    <li th:each="player : ${players}" class="bg-dark list-group-item d-flex justify-content-between align-items-start list-margin">
+</div>
+<div id="noPlayers" th:if = "${players.isEmpty()}" class="text-danger justify-content-center align-self-center">There are no players yet</div>
+<ul id="listPlayers" class="list-group px-5 mx-auto">
+    <li th:each="player : ${players}" class="bg-dark d-flex justify-content-between align-items-start list-margin"
+        th:attr="data-name=${player.name} + ' ' + ${player.surname}">
         <a class="link-underline-opacity-0 link-light"
            th:href="@{'/player' + '/' + ${player.id}}">
             <div class="ms-2 me-auto">
                 <div class="fw-bold" th:text="${player.name}+ ' ' + ${player.surname}">Nome Cognome</div>
-                <div th:text="${player.team}">Team</div>
+                <div th:text="${player.team.name}" class="text-secondary">Team</div>
             </div>
         </a>
     </li>
-    <div id="noPlayers" th:if = "${players.isEmpty()}" class="text-danger justify-content-center align-self-center">There are no players yet</div>
 </ul>
+
+
 </body>
 </html>

@@ -18,6 +18,6 @@ public class Credentials {
     private String username;
     private String password;
     private String role;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private User user;
 }

@@ -17,6 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import javax.sql.DataSource;
 
 import static it.uniroma3.siw.choma.federazionecalcio.model.Credentials.ADMIN_ROLE;
+import static it.uniroma3.siw.choma.federazionecalcio.model.Credentials.PRESIDENT_ROLE;
 
 @Configuration
 @EnableWebSecurity
@@ -57,6 +58,8 @@ public class AuthConfiguration {
                 .requestMatchers(HttpMethod.POST,"/register", "/login").permitAll()
                 .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
                 .requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
+                .requestMatchers(HttpMethod.GET,"/president/**").hasAnyAuthority(PRESIDENT_ROLE)
+                .requestMatchers(HttpMethod.POST,"/president/**").hasAnyAuthority(PRESIDENT_ROLE)
                 //utentiRegistered
                 .requestMatchers(HttpMethod.GET,"/registered/**").authenticated()
                 .requestMatchers(HttpMethod.POST,"/registered/**").authenticated()

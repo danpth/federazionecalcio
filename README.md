@@ -3,3 +3,4 @@
 - Nome e Cognome: Choma Daniel
   matricola: 563680
 ### Malfunzionamenti Noti:
+- Caricamento immagini

@@ -27,9 +27,9 @@ public class Team {
     private Integer yearOfFoundation;
     @NotBlank
     private String address;
-    @OneToOne
+    @OneToOne(mappedBy = "team", cascade = CascadeType.ALL)
     private User president;
-    @OneToMany(mappedBy = "team")
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private Set<Player> players;
 
     private String picFilename;

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link th:replace="fragments/base :: bootstrap">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+    <title>Edit Player</title>
+</head>
+<body>
+<div th:replace="fragments/base :: header"></div>
+<main class="form-lr w-100 m-auto">
+    <form th:action="@{'/president/editPlayer' + '/' + ${player.id}}" method="POST" th:object="${player}">
+        <h1 class="h3 mb-3 fw-normal text-light text-center">Edit Player</h1>
+        <div>
+            <p th:if = "${#fields.hasGlobalErrors()}" th:each = "err : ${#fields.globalErrors()}" th:text="${err}"></p>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="my-3 form-control text-secondary" required id="floatingInputName" placeholder="${player.name}"
+                   th:field="${player.name}"><span th:if="${#fields.hasErrors('name')}" th:errors="${player.name}" th:style="'color:red'"></span>
+            <label for="floatingInputName">Player's name</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="my-3 form-control text-secondary" id="floatingInputSurname" placeholder="${player.surname}"
+                   th:field="${player.surname}"><span th:if="${#fields.hasErrors('surname')}" th:errors="${player.surname}" th:style="'color:red'"></span>
+            <label for="floatingInputSurname">Surname</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="my-3 form-control text-secondary" id="floatingInputBirthDate" placeholder="${player.birthDate}"
+                   th:field="${player.birthDate}"><span th:if="${#fields.hasErrors('birthDate')}" th:errors="${player.birthDate}" th:style="'color:red'"></span>
+            <label for="floatingInputBirthDate">Birth Date</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="my-3 form-control text-secondary" id="floatingInputBirthPlace" placeholder="${player.birthPlace}"
+                   th:field="${player.birthPlace}"><span th:if="${#fields.hasErrors('birthPlace')}" th:errors="${player.birthPlace}" th:style="'color:red'"></span>
+            <label for="floatingInputBirthPlace">Birth Place</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="my-3 form-control text-secondary" id="floatingInputStartMembership" placeholder="${player.membershipFirstDay}"
+                   th:field="${player.membershipFirstDay}"><span th:if="${#fields.hasErrors('membershipFirstDay')}" th:errors="${player.membershipFirstDay}" th:style="'color:red'"></span>
+            <label for="floatingInputStartMembership">Membership Start Date</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="my-3 form-control text-secondary" id="floatingInputEndMembership" placeholder="${player.membershipLastDay}"
+                   th:field="${player.membershipLastDay}"><span th:if="${#fields.hasErrors('membershipLastDay')}" th:errors="${player.membershipLastDay}" th:style="'color:red'"></span>
+            <label for="floatingInputEndMembership">Membership End Date</label>
+        </div>
+        <button class="btn btn-outline-light w-100 py-2 my-3" type="submit">Confirm</button>
+    </form>
+</main>
+</body>
+</html>

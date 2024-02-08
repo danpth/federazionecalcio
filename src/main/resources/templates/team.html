@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link th:replace="fragments/base :: bootstrap">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+  <title>Team</title>
+</head>
+<body>
+<div th:replace="fragments/base :: header"></div>
+
+<div th:unless="${team}">Non esiste</div>
+<div class="container" th:if="${team}">
+  <div class="row">
+    <div class="col-md-5 col-sm-12">
+      <div class="row"><h1 class="text-light" th:text="${team.name}"></h1></div>
+      <div class="row"><span class="text-secondary" th:text="${team.yearOfFoundation} + ' - ' + ${team.address}"></span></div>
+      <div class="row">
+        <div class="col-auto text-secondary"
+             th:if="${team.president}"  th:text="'President: ' + ${team.president.name} + ' ' + ${team.president.surname}"></div>
+        <div  class="col-auto text-danger justify-content-center align-self-center"
+              th:unless="${team.president}">
+                <form th:if="${userRole == 'PRESIDENT' and globalUser.team == null}" th:action="@{'/president/claim' + '/' + ${team.id}}" method="POST" th:object="${team}">
+                  <input type="text" class="d-none" required id="floatingInputId" th:placeholder="${team.name}" th:field="${team.name}">
+                  <input type="text" class="d-none" required id="floatingInputYearOfFoundation" th:placeholder="${team.yearOfFoundation}" th:field="${team.yearOfFoundation}">
+                  <input type="text" class="d-none" required id="floatingInputAddress" th:placeholder="${team.address}" th:field="${team.address}">
+                  <button type="submit" class="btn btn-outline-light">Claim team</button>
+                </form>
+              <span th:if="${userRole!= 'PRESIDENT' or globalUser.team != null}">Team hasn't been claimed by any president yet</span>
+        </div>
+      </div>
+      <div class="row">
+        <h4 class="col-auto text-light">Players</h4>
+      </div>
+      <div class="row mb-4">
+        <a class="row text-decoration-none w-50 "
+           th:if="${userRole == 'PRESIDENT' && globalUser.team != null and globalUser.team.id == team.id}" th:href="@{'/president/addPlayer'}">
+          <button type="button" class="btn btn-outline-light">Add Player</button>
+        </a>
+
+        <div th:unless="not ${team.players} or ${team.players.isEmpty()}">
+          <ul class="list-group">
+            <li class="bg-dark" th:each = "player: ${team.players}">
+              <a class="link-underline-opacity-0 link-light"
+                 th:href="@{'/player' + '/' + ${player.id}}">
+                <div class="text-light font-weight-bolder"
+                     th:text = "${player.name} + ' ' + ${player.surname}"></div>
+                <div class="text-secondary"
+                      th:text = "'Nato: ' + ${player.birthPlace} + ' - ' + ${player.birthDate}"></div>
+                <div>
+                  <span class="text-secondary"
+                      th:text = "'Membership: ' + ${player.membershipFirstDay} + ' - ' + ${player.membershipLastDay}"></span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div  class="text-danger justify-content-center align-self-center" th:if="not ${team.players} or ${team.players.isEmpty()}">
+          No player has been added yet
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+</body>
+</html>

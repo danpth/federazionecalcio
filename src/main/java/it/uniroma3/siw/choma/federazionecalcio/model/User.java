@@ -29,7 +29,7 @@ public class User {
     private String fiscalCode;
     private String birthPlace;
     private String birthDate;
-    @OneToOne(mappedBy = "president")
+    @OneToOne
     private Team team;
 
 

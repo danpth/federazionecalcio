@@ -27,4 +27,14 @@ public class GlobalController {
     public User getUser() {
         return userService.getCurrentUser();
     }
+    @ModelAttribute("userRole")
+    public String getRole() {
+        UserDetails user = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return user.getAuthorities().stream().findFirst().get().getAuthority();
+        }
+        return "GUEST";
+    }
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link th:replace="fragments/base :: bootstrap">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+    <title>Player</title>
+</head>
+<body>
+<div th:replace="fragments/base :: header"></div>
+
+<div th:unless="${player}">Non esiste</div>
+<div class="container" th:if="${player}">
+    <div class="px-5 mx-auto list-group">
+        <div id="listTitle" class="row w-50 my-1 justify-content-center align-self-center">
+            <h2 th:text="${player.name} + ' ' + ${player.surname}" class="p-2 text-center text-warning font-weight-bolder"></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5 col-sm-12">
+            <div class="row">
+                <div class="text-secondary"
+                     th:text = "'Nato: ' + ${player.birthPlace} + ' - ' + ${player.birthDate}"></div>
+                <div>
+                  <span class="text-secondary"
+                        th:text = "'Membership: ' + ${player.membershipFirstDay} + ' - ' + ${player.membershipLastDay}"></span>
+                </div>
+
+            </div>
+            <a class="row text-decoration-none w-50 margin-list"
+               th:if="${userRole == 'PRESIDENT' and globalUser.team != null and globalUser.team.id == player.team.id}"
+               th:href="@{'/president/editPlayer' + '/' + ${player.id}}">
+                <button type="button" class="btn btn-outline-light">Edit</button>
+            </a>
+
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

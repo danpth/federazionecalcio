@@ -44,17 +44,6 @@ public class UserService {
         return user;
     }
 
-    /*Method that checks if a User can add a Team (if he is an ADMIN)
-    */
-    public boolean canAddTeam(User user){
-        return true;
-    }
-
-    /*Method that checks if a User can add a Player (if he is a PRESIDENT)
-     */
-    public boolean canAddPlayer(User user){
-        return true;
-    }
 
     @Transactional
     public boolean alreadyExists(User user){
@@ -83,5 +72,9 @@ public class UserService {
         for(User user : iterable)
             result.add(user);
         return result;
+    }
+
+    public void updateUser(User president) {
+        userRepository.save(president);
     }
 }

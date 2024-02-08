@@ -38,4 +38,10 @@ public class CredentialsService {
         credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
         return this.credentialsRepository.save(credentials);
     }
+    @Transactional
+    public Credentials saveCredentialsAdmin(Credentials credentials) {
+        credentials.setRole(Credentials.ADMIN_ROLE);
+        credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
+        return this.credentialsRepository.save(credentials);
+    }
 }

@@ -22,24 +22,21 @@
         </form>
       </div>
     </div>
-    <div th:if="${globalUser.team}" class="col-6">
+    <div th:if="${globalUser.team != null}" class="col-6">
       <div class="row">
-        <h4 class="col-auto text-light">Your teams</h4>
+        <h4 class="col-auto text-light">Your team</h4>
       </div>
       <div class="row">
-        <!--
-        <div th:if="${globalUser.teams}">
-          <ul class="list-group">
-            <li class="list-group-item bg-dark" th:each = "team : ${globalUser.teams}">
-              <a class="anchor-link link-light link-opacity-50 link-opacity-100-hover link-underline-opacity-0"
-                 th:href = "@{'/movie/' + ${team.id}}"
-                 th:text = "${team.name} + ' '">
-                <span class="mx-3 text-secondary" th:text = "${team.city}"></span>
-              </a>
-            </li>
-          </ul>
-        </div>
-        -->
+        <a class="link-underline-opacity-0 link-light"
+           th:href="@{'/team' + '/' + ${globalUser.team.id}}">
+          <div class="ms-2 me-auto">
+            <div class="fw-bold text-center" th:text="${globalUser.team.name}">Team's name</div>
+            <div class="text-center">
+              <span th:text="${globalUser.team.yearOfFoundation}">Year of foundation</span> -
+              <span th:text="${globalUser.team.address}">Address</span>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
