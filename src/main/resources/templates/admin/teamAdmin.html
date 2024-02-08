@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link th:replace="fragments/base :: bootstrap">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+    <title>Movie</title>
+</head>
+<body>
+<div th:replace="fragments/base :: header"></div>
+
+<div th:unless="${team}">Non esiste</div>
+<div class="container" th:if="${team}">
+    <div class="row">
+        <div class="col-md-5 col-sm-12">
+            <div class="row"><h1 class="text-light" th:text="${team.name}"></h1></div>
+            <div class="row"><span class="text-secondary" th:text="${team.yearOfFoundation} + ' - ' + ${team.address}"></span></div>
+            <a class="row text-decoration-none w-50 "
+               th:href="@{'/admin/editTeam' + '/' + ${team.id}}">
+                <button type="button" class="btn btn-outline-light">Edit</button>
+            </a>
+            <div class="row">
+                <div class="col-auto"
+                   th:if="${team.president}"  th:text="${team.president.name} + ' ' + ${team.president.surname}"></div>
+                <div  class="col-auto text-danger justify-content-center align-self-center"
+                     th:unless="${team.president}">Team hasn't been claimed by any president yet</div>
+            </div>
+            <div class="row">
+                <h4 class="col-auto text-light">Players</h4>
+            </div>
+            <div class="row mb-4">
+                <div th:unless="not ${team.players} or ${team.players.isEmpty()}">
+                    <ul class="list-group">
+                        <li class="list-group-item bg-dark" th:each = "player: ${team.players}">
+                            <div class=""
+                               th:text = "${player.name} + ' ' + ${player.surname}"></div>
+                            <div class=""
+                                 th:text = "${player.birthPlace} + ' ' + ${player.birthDay}"></div>
+                            <div>Membership period:
+                            <span class=""
+                                 th:text = "${player.membershipFirstDay} + ' ' + ${player.membershipLastDay}"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div  class="text-danger justify-content-center align-self-center" th:if="not ${team.players} or ${team.players.isEmpty()}">
+                    No player has been added yet
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>

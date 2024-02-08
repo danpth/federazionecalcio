@@ -9,7 +9,7 @@
 <body>
 <div th:replace="fragments/base :: header"></div>
 <main class="form-lr w-100 m-auto">
-    <form th:action="@{/register}" method="POST">
+    <form th:action="@{/register}" method="POST" class="row g-3">
         <h1 class="h3 mb-3 fw-normal text-light text-center">Register as a President</h1>
 
         <div th:if="${#fields.hasErrors('user')} or ${#fields.hasErrors('credentials')}">
@@ -22,32 +22,56 @@
                 </li>
             </ul>
         </div>
-        <div class="form-floating">
-            <input type="text" class="my-3 form-control text-secondary" required id="floatingInputName" placeholder="name"
-                   th:field="${user.name}"><span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'"></span>
-            <label for="floatingInputName">Name</label>
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="text" class="my-3 form-control text-secondary" required id="floatingInputName" placeholder="name"
+                       th:field="${user.name}"><span th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}" th:style="'color:red'"></span>
+                <label for="floatingInputName">Name</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="my-3 form-control text-secondary" required id="floatingInputUsername" placeholder="username"
+                       th:field="${credentials.username}"><span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}" th:style="'color:red'"></span>
+                <label for="floatingInputUsername">Username</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="my-3 form-control text-secondary" required id="floatingInputPass" placeholder="password"
+                       th:field="${credentials.password}"><span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}" th:style="'color:red'"></span>
+                <label for="floatingInputPass">Password</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="my-3 form-control text-secondary" required id="floatingInputDateOfBirth" placeholder="date of birth"
+                       th:field="${user.birthDate}"><span th:if="${#fields.hasErrors('user.birthDate')}" th:errors="${user.birthDate}" th:style="'color:red'"></span>
+                <label for="floatingInputDateOfBirth">Date of Birth</label>
+            </div>
         </div>
-        <div class="form-floating">
-            <input type="text" class="my-3 form-control text-secondary" required id="floatingInputSurname" placeholder="surname"
-                   th:field="${user.surname}"><span th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}" th:style="'color:red'"></span>
-            <label for="floatingInputSurname">Surname</label>
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="text" class="my-3 form-control text-secondary" required id="floatingInputSurname" placeholder="surname"
+                       th:field="${user.surname}"><span th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}" th:style="'color:red'"></span>
+                <label for="floatingInputSurname">Surname</label>
+            </div>
+            <div class="form-floating">
+                <input type="email" class="my-3 form-control text-secondary" required id="floatingInputEmail" placeholder="gino@gino.gino"
+                       th:field="${user.email}"><span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'"></span>
+                <label for="floatingInputEmail">Email</label>
+            </div>
+
+
+            <div class="form-floating">
+                <input type="text" class="my-3 form-control text-secondary" required id="floatingInputFiscalCode" placeholder="fiscal code"
+                       th:field="${user.fiscalCode}"><span th:if="${#fields.hasErrors('user.fiscalCode')}" th:errors="${user.fiscalCode}" th:style="'color:red'"></span>
+                <label for="floatingInputFiscalCode">Fiscal Code</label>
+            </div>
+
+            <div class="form-floating">
+                <input type="text" class="my-3 form-control text-secondary" required id="floatingInputPlaceOfBirth" placeholder="place of birth"
+                       th:field="${user.birthPlace}"><span th:if="${#fields.hasErrors('user.birthPlace')}" th:errors="${user.birthPlace}" th:style="'color:red'"></span>
+                <label for="floatingInputPlaceOfBirth">Place of Birth</label>
+            </div>
         </div>
-        <div class="form-floating">
-            <input type="email" class="my-3 form-control text-secondary" required id="floatingInputEmail" placeholder="gino@gino.gino"
-                   th:field="${user.email}"><span th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'"></span>
-            <label for="floatingInputEmail">Email</label>
+        <div class="col-12">
+            <button class="btn btn-outline-light w-100 py-2 my-3" type="submit">Register</button>
         </div>
-        <div class="form-floating">
-            <input type="text" class="my-3 form-control text-secondary" required id="floatingInputUsername" placeholder="username"
-                   th:field="${credentials.username}"><span th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}" th:style="'color:red'"></span>
-            <label for="floatingInputUsername">Username</label>
-        </div>
-        <div class="form-floating">
-            <input type="password" class="my-3 form-control text-secondary" required id="floatingInputPass" placeholder="password"
-                   th:field="${credentials.password}"><span th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}" th:style="'color:red'"></span>
-            <label for="floatingInputPass">Password</label>
-        </div>
-        <button class="btn btn-outline-light w-100 py-2 my-3" type="submit">Register</button>
     </form>
 </main>
 </body>

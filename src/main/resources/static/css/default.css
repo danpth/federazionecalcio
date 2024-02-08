@@ -40,6 +40,14 @@ h1 {
     opacity: 70%;
 }
 .form-lr {
-    max-width: 330px;
+    max-width: 500px;
     padding: 1rem;
+}
+
+.image-smaller {
+    max-width: 50%;
+    height: auto;
+}
+.list-margin{
+    margin-top: 1rem;
 }

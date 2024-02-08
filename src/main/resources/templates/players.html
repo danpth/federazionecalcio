@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link th:replace="fragments/base :: bootstrap">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+    <script src="/js/playerSearch.js"></script>
+    <title>Players</title>
+</head>
+<body>
+<div th:replace="fragments/playerSearchHeader :: playersHeader"></div>
+<ul id="listPlayers" class="list-group px-5 mx-auto">
+    <div id="listTitle" class="row w-50 my-1 justify-content-center align-self-center">
+        <button type = "button" class="p-2 text-center btn btn-outline-light">Players</button>
+    </div>
+    <li th:each="player : ${players}" class="bg-dark list-group-item d-flex justify-content-between align-items-start list-margin">
+        <a class="link-underline-opacity-0 link-light"
+           th:href="@{'/player' + '/' + ${player.id}}">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold" th:text="${player.name}+ ' ' + ${player.surname}">Nome Cognome</div>
+                <div th:text="${player.team}">Team</div>
+            </div>
+        </a>
+    </li>
+    <div id="noPlayers" th:if = "${players.isEmpty()}" class="text-danger justify-content-center align-self-center">There are no players yet</div>
+</ul>
+</body>
+</html>

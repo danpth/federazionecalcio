@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link th:replace="fragments/base :: bootstrap">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+  <title>Add Team</title>
+</head>
+<body>
+<div th:replace="fragments/base :: header"></div>
+<main class="form-lr w-100 m-auto">
+  <form th:action="@{/admin/editTeam}" method="POST" th:object="${team}">
+    <h1 class="h3 mb-3 fw-normal text-light text-center">Edit Team</h1>
+    <div>
+      <p th:if = "${#fields.hasGlobalErrors()}" th:each = "err : ${#fields.globalErrors()}" th:text="${err}"></p>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="my-3 form-control text-secondary" required id="floatingInputName" th:placeholder="${team.name}"
+             th:field="${team.name}"><span th:if="${#fields.hasErrors('name')}" th:errors="${team.name}" th:style="'color:red'"></span>
+      <label for="floatingInputName">Team's name</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="my-3 form-control text-secondary" id="floatingInputYear" th:placeholder="${team.yearOfFoundation}"
+             th:field="${team.yearOfFoundation}"><span th:if="${#fields.hasErrors('yearOfFoundation')}" th:errors="${team.yearOfFoundation}" th:style="'color:red'"></span>
+      <label for="floatingInputYear">Year of foundation</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="my-3 form-control text-secondary" id="floatingInputAddress" th:placeholder="${team.address}"
+             th:field="${team.address}"><span th:if="${#fields.hasErrors('address')}" th:errors="${team.address}" th:style="'color:red'"></span>
+      <label for="floatingInputYear">Address</label>
+    </div>
+    <button class="btn btn-outline-light w-100 py-2 my-3" type="submit">Confirm</button>
+  </form>
+</main>
+</body>
+</html>

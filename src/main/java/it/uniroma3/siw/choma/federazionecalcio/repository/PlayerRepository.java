@@ -4,4 +4,5 @@ import it.uniroma3.siw.choma.federazionecalcio.model.Player;
 import org.springframework.data.repository.CrudRepository;
 
 public interface PlayerRepository extends CrudRepository<Player, Long> {
+    boolean existsByNameAndSurname(String name, String surname);
 }

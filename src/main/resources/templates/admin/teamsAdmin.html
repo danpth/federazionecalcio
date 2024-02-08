@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link th:replace="fragments/base :: bootstrap">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/default.css}" />
+    <title>Teams</title>
+</head>
+<body>
+<div th:replace="fragments/base :: header"></div>
+<ul id="listTeams" class="list-group px-5 mx-auto">
+    <div class="row w-50 my-1 justify-content-center align-self-center">
+        <button type = "button" class="p-2 text-center btn btn-outline-light"
+                onclick="location.href='/admin/formNewTeam'">Create New Team</button>
+    </div>
+    <li th:each="team : ${teams}" class="bg-dark d-flex justify-content-between align-self-center list-margin"
+        th:data-title="${team.name}">
+        <a class="link-underline-opacity-0 link-light"
+           th:href="@{'/admin/team' + '/' + ${team.id}}">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold text-center" th:text="${team.name}">Team's name</div>
+                <div class="text-center">
+                    <span th:text="${team.yearOfFoundation}">Year of foundation</span> -
+                    <span th:text="${team.address}">Address</span>
+                </div>
+            </div>
+        </a>
+    </li>
+    <div class="text-danger justify-content-center align-self-center" th:if="${teams.isEmpty()}">There's no teams in the federation at the moment</div>
+</ul>
+</body>
+</html>
